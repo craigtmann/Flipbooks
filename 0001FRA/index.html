@@ -202,6 +202,13 @@
   .counter{font-size:12px;letter-spacing:.1em;min-width:170px;text-align:center;color:#bfcbce;}
   .hint{font-size:11px;color:#8ea3a7;letter-spacing:.04em;}
   .progress,.controls,.hint{position:relative;z-index:10;}
+  /* view-only protection */
+  html,body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;}
+  img{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;-o-user-drag:none;user-drag:none;pointer-events:none;}
+  @media print{
+    body>*{display:none !important;}
+    body::before{display:block !important;visibility:visible;content:"This Fraud Risk Assessment is a view-only educational sample. Printing and saving are disabled. Please contact Craig Mann, CCA, CCP, CFE, PMP.";font:600 16px 'Helvetica Neue',Arial,sans-serif;color:#111;padding:60px 48px;line-height:1.6;text-align:center;}
+  }
 </style>
 </head>
 <body>
@@ -424,7 +431,7 @@ function CO(o){return `<div class="callout${o.navy?' navy':''}"><span class="ch"
 
 /* ---------- pages ---------- */
 const FA='Complimentary Fraud Risk Assessment';
-const FB='Fraud Risk Assessment · Metropark Station (Sample)';
+const FB='Fraud Risk Assessment · Transit-Oriented Development (Sample)';
 const P=[
  {type:'cover'},
  {type:'toc'},
@@ -523,14 +530,14 @@ const P=[
 
  {type:'divider',
   kick:'Part Two · A Real FRA in Action',
-  ttl:'Metropark Station Redevelopment',
-  sub:'Transit-Oriented Development / Mixed-Use · Phase 2 Under Construction · Woodbridge Township, Middlesex County, NJ · Names redacted (sample)',
+  ttl:'Northeastern U.S. Transit Redevelopment',
+  sub:'Transit-Oriented Development / Mixed-Use · Phase 2 Under Construction · Northeastern United States · Names and location redacted (sample)',
   rating:'HIGH',
   cards:[{h:'Project Owner / Lessor',v:'Redacted · Sample'},{h:'Developer / Lessee',v:'Redacted · Sample'},{h:'Contract Structure',v:'99-Year Ground Lease & State Tax Credits'},{h:'Total Investment (Est.)',v:'~$350M+ (Both Phases)'}],
   foot:FB},
 
  {kick:'Section 1 · Executive Summary', ttl:'A High-Risk, High-Visibility Engagement',
-  body:['A landmark transit-oriented development on a 12.4-acre parcel adjacent to Metropark Station. Phase 1, a $200M health and wellness center, opened April 2026 with $113.65M in State tax credits. Phase 2, a 517,000 SF mixed-use residential and retail building (245 units, 20% affordable), is under active construction.',
+  body:['A landmark transit-oriented development on a 12.4-acre parcel adjacent to a major Northeastern U.S. commuter rail station. Phase 1, a $200M health and wellness center, opened April 2026 with $113.65M in State tax credits. Phase 2, a 517,000 SF mixed-use residential and retail building (245 units, 20% affordable), is under active construction.',
    'The financing structure combines a ground lease, State tax credits, affordable-housing set-asides, and private capital, creating multiple layers of cost accountability and compliance risk. <b>Overall fraud risk for Phase 2 is rated HIGH.</b>'],
   comp:()=>C_stats([[
     {num:'~$350M',color:TEAL,label:'Est. Total Investment'},{num:'$113.65M',color:ORANGE,label:'State Tax Credit Awarded'},{num:'759K SF',color:TEAL,label:'Total Built Area'},{num:'HIGH',color:RUST,label:'Overall Fraud Risk'},{num:'6',color:TEAL,label:'Phase Audit Program'}]]),
@@ -626,7 +633,7 @@ const P=[
   callout:{h:'Full-program estimate · 375 to 613 hours',t:'Phase 1 mobilization carries a standard 25-hour minimum; Phase 3 is an ongoing monthly cadence during active construction. Scope is calibrated to contract value, subcontractor count, and change order volume.'},
   foot:FB},
 
- {kick:'Section 13 · Overall Risk Dashboard', ttl:'Metropark Station · Risk Profile',
+ {kick:'Section 13 · Overall Risk Dashboard', ttl:'Transit-Oriented Development · Risk Profile',
   comp:()=>C_dash([
     {l:'Tax Credit Cost Certification',s:20,r:'Critical'},
     {l:'Change Order Inflation (Phase 2)',s:20,r:'Critical'},
@@ -672,7 +679,7 @@ function pageHTML(p,idx){
       <div class="rule"></div>
       <div class="tocwrap">
         <div class="toccol"><div class="tocpart">Part One · The Fraud Reality</div>${one.map(row).join('')}</div>
-        <div class="toccol"><div class="tocpart">Part Two · Metropark Station Sample</div>${two.map(row).join('')}</div>
+        <div class="toccol"><div class="tocpart">Part Two · Transit Project Sample</div>${two.map(row).join('')}</div>
       </div>
       <div class="foot"><span class="fl">Craig Mann, CCA, CCP, CFE, PMP</span><span class="fc">Tap any section to jump straight there</span><span class="fr">Page ${num} of ${total}</span></div></div>`;
   }
@@ -802,49 +809,24 @@ function fit(){ const H=684;
   scaler.style.transform='scale('+k+')'; scaler.style.width=(1000*k)+'px'; scaler.style.height=(H*k)+'px'; }
 window.addEventListener('resize',fit); fit(); renderStatic();
 </script>
-
 <script>
-/* ---- COPY / PRINT / SAVE PROTECTION ---- */
-// Disable right-click context menu
-document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
-
-// Disable text selection
-document.addEventListener('selectstart', function(e){ e.preventDefault(); return false; });
-
-// Block keyboard shortcuts
-document.addEventListener('keydown', function(e){
-  // Block Ctrl+P (print), Ctrl+S (save), Ctrl+C (copy), Ctrl+U (view source)
-  // Ctrl+A (select all), Ctrl+X (cut), F12 (devtools), Ctrl+Shift+I (devtools)
-  if(e.ctrlKey && (e.key==='p'||e.key==='s'||e.key==='c'||e.key==='u'||e.key==='a'||e.key==='x')){
-    e.preventDefault(); e.stopPropagation(); return false;
-  }
-  if(e.ctrlKey && e.shiftKey && (e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){
-    e.preventDefault(); e.stopPropagation(); return false;
-  }
-  if(e.key==='F12'||e.key==='PrintScreen'){
-    e.preventDefault(); e.stopPropagation(); return false;
-  }
-  // Block Cmd equivalents on Mac
-  if(e.metaKey && (e.key==='p'||e.key==='s'||e.key==='c'||e.key==='u'||e.key==='a'||e.key==='x')){
-    e.preventDefault(); e.stopPropagation(); return false;
-  }
-});
-
-// Block print via window.print()
-window.onbeforeprint = function(){ return false; };
-window.addEventListener('beforeprint', function(e){ e.preventDefault(); e.stopPropagation(); });
-
-// Disable drag
-document.addEventListener('dragstart', function(e){ e.preventDefault(); return false; });
-
-// CSS to disable selection and printing
-const protStyle = document.createElement('style');
-protStyle.textContent = `
-  * { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; }
-  @media print { body { display: none !important; } }
-`;
-document.head.appendChild(protStyle);
-/* ---- END PROTECTION ---- */
+(function(){
+  var stop=function(e){ e.preventDefault(); e.stopPropagation(); return false; };
+  /* right-click / context menu */
+  document.addEventListener('contextmenu', stop, {capture:true});
+  /* drag, text selection, copy, cut */
+  ['dragstart','selectstart','copy','cut'].forEach(function(ev){
+    document.addEventListener(ev, stop, {capture:true});
+  });
+  /* save (Ctrl/Cmd+S), print (P), view-source (U), copy (C), cut (X), select-all (A),
+     dev tools (F12, Ctrl+Shift+I/J/C) — arrow-key navigation is left untouched */
+  document.addEventListener('keydown', function(e){
+    var k=(e.key||'').toLowerCase();
+    if(k==='f12'){ return stop(e); }
+    if((e.ctrlKey||e.metaKey) && !e.shiftKey && ['s','p','u','c','x','a'].indexOf(k)!==-1){ return stop(e); }
+    if((e.ctrlKey||e.metaKey) && e.shiftKey && ['i','j','c'].indexOf(k)!==-1){ return stop(e); }
+  }, {capture:true});
+})();
 </script>
 </body>
 </html>
